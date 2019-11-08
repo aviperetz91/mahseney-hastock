@@ -1,9 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { userById, requireLogin, isAuth, isAdmin } = require('../middlewares');
 
-// @route   GET api/users/test
-// @desc    Tests users route
-// @access  Public
-router.get('/user/test', (req, res) => res.json({ msg: 'User Works' }));
+
+router.param('userId', userById);
+
+// @route   GET api/test/userId
+// @desc    Tests route
+// @access  Private
+router.get('/test/:userId', requireLogin, isAuth, isAdmin, (req, res) => {
+    res.json({
+        user: req.profile
+    });
+});
 
 module.exports = router;
