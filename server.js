@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -17,7 +19,10 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
-app.get('/', (req, res) => res.send('Hello World'));
+// Body parser and cookie parser middlewares
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
 
 // Use Routes
 app.use('/api', authRoutes);
