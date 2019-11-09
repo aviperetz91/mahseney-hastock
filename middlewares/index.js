@@ -1,5 +1,7 @@
 const expressJwt = require('express-jwt');  // For authorization check
+
 const User = require('../models/User');
+const Category = require('../models/Category');
 
 
 exports.userById = (req, res, next, id) => {
@@ -10,6 +12,18 @@ exports.userById = (req, res, next, id) => {
             });
         }
         req.profile = user;
+        next();
+    });
+};
+
+exports.categoryById = (req, res, next, id) => {
+    Category.findById(id).exec((err, category) => {
+        if (err || !category) {
+            return res.status(400).json({
+                error: "Category does not exists"
+            });
+        }
+        req.category = category;
         next();
     });
 };
