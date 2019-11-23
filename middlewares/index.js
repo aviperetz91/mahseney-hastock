@@ -2,6 +2,7 @@ const expressJwt = require('express-jwt');  // For authorization check
 
 const User = require('../models/User');
 const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 
 exports.userById = (req, res, next, id) => {
@@ -20,12 +21,26 @@ exports.categoryById = (req, res, next, id) => {
     Category.findById(id).exec((err, category) => {
         if (err || !category) {
             return res.status(400).json({
-                error: "Category does not exists"
+                error: "Category not found"
             });
         }
         req.category = category;
         next();
     });
+};
+
+exports.productById = (req, res, next, id) => {
+    Product.findById(id)
+        .populate("category")
+        .exec((err, product) => {
+            if (err || !product) {
+                return res.status(400).json({
+                    error: "Product not found"
+                });
+            }
+            req.product = product;
+            next();
+        });
 };
 
 exports.requireLogin = expressJwt({
