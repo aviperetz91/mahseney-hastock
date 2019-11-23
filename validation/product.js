@@ -5,16 +5,22 @@ const isEmpty = require('../validation/is-empty');
 const validateProductInput = data => {
     let errors = {};
 
+    data.category = !isEmpty(data.category) ? data.category : '';
     data.title = !isEmpty(data.title) ? data.title : '';
     data.description = !isEmpty(data.description) ? data.description : '';
     data.price = !isEmpty(data.price) ? data.price : '';
     data.quantity = !isEmpty(data.quantity) ? data.quantity : '';
+    data.shipping = !isEmpty(data.shipping) ? data.shipping : '';
+
+    if(validator.isEmpty(data.category)) {
+        errors.category = 'Category field is required';
+    }
 
     if(!validator.isLength(data.title, { min: 2, max: 30 })) {
         errors.title = 'Title must be between 2 and 30 characters';
     }
 
-    if(validator.isEmpty(data.name)) {
+    if(validator.isEmpty(data.title)) {
         errors.title = 'Title field is required';
     }
 
@@ -35,11 +41,15 @@ const validateProductInput = data => {
     }
 
     if(!validator.isNumeric(data.quantity)) {
-        errors.price = 'Quantity must be a number';
+        errors.quantity = 'Quantity must be a number';
     }
     
     if(validator.isEmpty(data.quantity)) {
-        errors.price = 'Quantity field is required';
+        errors.quantity = 'Quantity field is required';
+    }
+
+    if(validator.isEmpty(data.shipping)) {
+        errors.shipping = 'Shipping field is required';
     }
 
     return {
