@@ -166,10 +166,77 @@ router.get('/products/related/:productId', (req, res) => {
         if(err) {
             return res.status(400).json({ error: 'Products not found' });
         }
-        // console.log(products);
         res.json(products);
     })
 })
+
+
+// @route   GET api/products/categories
+// @desc    Get all categories that are used in the product model
+// @access  Public
+router.get('/products/categories', (req, res) => {
+    Product.distinct('category', {}, (err, categories) => {
+        if(err) {
+            return res.status(400).json({ error: 'Categories not found' });
+        }
+        res.json(categories);
+    })
+})
+
+
+// ********** List products by user selection **********
+// implementation of product search is in react frontend.
+// show categories in checkbox and price range in radio buttons.
+// as the user clicks on those checkbox and radio buttons
+// it will make api request and show the products to users based on what he select
+
+// @route   POST api/products/by/choice
+// @desc    List of products by user choice
+// @access  Public
+router.post('/products/by/selection', (req, res) => {
+    let order = req.body.order ? req.body.order : "desc";
+    let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+    let limit = req.body.limit ? +req.body.limit : 100;
+    let skip = +req.body.skip;
+    let findArgs = {};
+
+    // console.log(order, sortBy, limit, skip, req.body.filters);
+    // console.log("findArgs", findArgs);
+
+    for (let key in req.body.filters) {
+        if (req.body.filters[key].length > 0) {
+            if (key === "price") {
+                // gte -  greater than price [0-10]
+                // lte - less than
+                findArgs[key] = {
+                    $gte: req.body.filters[key][0],
+                    $lte: req.body.filters[key][1]
+                };
+            } else {
+                findArgs[key] = req.body.filters[key];
+            }
+        }
+    }
+
+    Product.find(findArgs)
+        .select("-photo")
+        .populate("category")
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, data) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "Products not found"
+                });
+            }
+            res.json({
+                size: data.length,
+                data
+            });
+        });
+})
+
 
 router.param('productId', productById);
 router.param('userId', userById);
