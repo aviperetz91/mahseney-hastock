@@ -238,6 +238,19 @@ router.post('/products/by/selection', (req, res) => {
 })
 
 
+// @route   GET api/product/photo/:productId
+// @desc    Get product's photo
+// @access  Public
+router.get('/product/photo/:productId', (req, res, next) => {
+    if(req.product.photo.data) {
+        res.set('Content-Type', req.product.photo.contentType);
+        return res.send(req.product.photo.data);
+    }
+
+    next();
+})
+
+
 router.param('productId', productById);
 router.param('userId', userById);
 
