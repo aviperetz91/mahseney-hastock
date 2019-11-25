@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -18,11 +19,14 @@ mongoose
   .connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+  
+mongoose.set('useFindAndModify', false);
 
-// Body parser and cookie parser middlewares
+// middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+app.use(cors());
 
 // Use Routes
 app.use('/api', authRoutes);
