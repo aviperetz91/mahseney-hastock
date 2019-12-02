@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../../../images/logo.jpg';
 import { FaBars } from 'react-icons/fa'
+import { withRouter } from 'react-router-dom';
+
 
 import styles from './style';
 
@@ -27,6 +29,8 @@ const Toolbar = props => (
                 <li className="nav-item">
                     <Link style={isActive(props.history, '/')} className="nav-link" to='/'>ראשי <span className="sr-only"></span></Link>
                 </li>
+            </ul>
+            <ul className="navbar-nav">
                 <li className="nav-item">
                     <Link style={isActive(props.history, '/login')} className="nav-link" to='/login'>התחברות</Link>
                 </li>
