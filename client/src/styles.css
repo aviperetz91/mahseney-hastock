@@ -1,0 +1,11 @@
+html {
+    direction: rtl;
+}
+
+body {
+    font-family: 'Arimo';
+}
+
+button:focus {
+    outline: none;
+} 
