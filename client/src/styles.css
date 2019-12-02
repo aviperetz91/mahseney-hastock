@@ -6,6 +6,11 @@ body {
     font-family: 'Arimo';
 }
 
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #aaa;
+}
+
 button:focus {
     outline: none;
 } 
