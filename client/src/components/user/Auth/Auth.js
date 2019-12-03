@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
+import axios from 'axios';
+import { API } from '../../../config';
 
 const Register = () => {
-    const [isSignup, setIsSignup] = useState(false);
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [emailIsValid, setEmailIsValid] = useState(false);
     const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+    const [isSignup, setIsSignup] = useState(false);
+    const [emailIsValid, setEmailIsValid] = useState(false);
     const [passwordIsValid, setPasswordIsValid] = useState(false);
+    
+
+    const toggleMode = event => {
+        event.preventDefault();
+        const toggle = !isSignup;
+        setIsSignup(toggle);
+    }
 
     const emailChangeHandler = event => {
-        const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         if(!reg.test(event.target.value)) {
             setEmailIsValid(false);
         }
@@ -29,19 +40,42 @@ const Register = () => {
         setPassword(event.target.value);
     }
 
+    const submitHandler = event => {
+        event.preventDefault();
+        if(isSignup) {
+            signupHandler({name, email, password, confirm})
+        }
+    }
+
+    const signupHandler = user => {
+        axios.post(`${API}/register`, user)
+        .then(response => { return response.json()} )
+        .catch(err => console.log(err))
+    }
+
     const registerForm = () => (
         <Container style={{display: 'flex', justifyContent: 'center'}}>
-            <Form style={{width: 350, paddingTop: 24}}>
+            <Form style={{width: 350, paddingTop: 18}}>
+                <Form.Group>
+                    {isSignup ? 
+                    <Form.Control
+                        style={{padding: 20, fontSize: 18}} 
+                        type="text" 
+                        placeholder="שם מלא" 
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}    
+                    /> : null }
+                </Form.Group>
                 <Form.Group>
                     <Form.Control
                         style={{padding: 20, fontSize: 18}} 
                         type="email" 
                         placeholder="כתובת מייל" 
                         value={email}
-                        onChange={(event) => emailChangeHandler(event)}    
+                        onChange={emailChangeHandler}    
                     />
                     { !emailIsValid && isSignup ?
-                    <Form.Text style={{fontStyle: 'italic', padding: 5}} className="text-muted">
+                    <Form.Text style={{padding: 5}} className="text-muted">
                     אנא הזן כתובת חוקית, למשל - username@gmail.com
                     </Form.Text> : null }
                 </Form.Group>
@@ -51,18 +85,29 @@ const Register = () => {
                         type="password" 
                         placeholder="סיסמא" 
                         value={password}
-                        onChange={(event) => passwordChangeHandler(event)}
+                        onChange={passwordChangeHandler}
                     />
                     { !passwordIsValid && isSignup ?
-                    <Form.Text style={{fontStyle: 'italic', padding: 5}} className="text-muted">
+                    <Form.Text style={{padding: 5}} className="text-muted">
                     הסיסמא צריכה להכיל בין 6-12 תווים
                      </Form.Text> : null }
+                </Form.Group>
+                <Form.Group>
+                    {isSignup ? 
+                    <Form.Control
+                        style={{padding: 20, fontSize: 18}} 
+                        type="password" 
+                        placeholder="אמת סיסמא" 
+                        value={confirm}
+                        onChange={(event) => setConfirm(event.target.value)}    
+                    /> : null }
                 </Form.Group>
                 <div style={{marginTop: 30}}>
                     <Button 
                         style={{boxShadow: 'none', padding: 7}} 
                         variant="danger" 
                         block
+                        onClick={submitHandler}
                     >
                         {isSignup ? 'הרשם' : 'התחבר'}
                     </Button>
@@ -70,11 +115,7 @@ const Register = () => {
                         style={{boxShadow: 'none', padding: 7}} 
                         variant="warning"
                         block
-                        onClick={(e) => {
-                            e.preventDefault();
-                            const toggle = !isSignup;
-                            setIsSignup(toggle);
-                        }}
+                        onClick={toggleMode}
                     >
                         {isSignup ? 'רשום? עבור למצב התחברות' : 'משתמש חדש? עבור למצב הרשמה'}
                     </Button>
@@ -84,7 +125,7 @@ const Register = () => {
     )
 
     return (
-        <Container style={{paddingTop: 24}}>
+        <Container style={{paddingTop: 18}}>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <h1 style={{fontWeight: '600', color: '#232323', fontSize: 40}}>כניסה למערכת</h1>
             </div>
@@ -95,51 +136,3 @@ const Register = () => {
 }
 
 export default Register;
-
-
-
-
-// import React, { useState } from 'react';
-
-// const Register = () => {
-//     const [isSignup, setIsSignup] = useState(false);
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-
-//     const registerForm = () => (
-//         <div style={{display: 'flex', justifyContent:'center', padding: 32 }}>
-//             <form style={{width: 350}}>
-//                 <div style={{display: 'block'}} className="form-group">
-//                     <input type="text" className="form-control" id="InputName" placeholder="שם מלא"/>
-//                 </div>
-//                 <div style={{display: 'block'}} className="form-group">
-//                     <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="כתובת חוקית"/>
-//                     <small id="emailHelp" className="form-text text-muted">אנא הזן כתובת חוקית, למשל - username@gmail.com</small>
-//                 </div>
-//                 <div style={{display: 'block'}} className="form-group">
-//                     <input type="password" className="form-control" id="inputPassword" placeholder="סיסמא"/>
-//                     <small id="emailHelp" className="form-text text-muted">הסיסמא צריכה להכיל 6-12 תווים.</small>
-//                 </div>
-//                 <button type="submit" className="btn btn-danger btn-block">
-//                     {isSignup ? 'הרשם' : 'התחבר'}
-//                 </button>
-//                 <button style={{outline: 'none'}} onClick={(e) => {
-//                     e.preventDefault();
-//                     const toggle = !isSignup;
-//                     setIsSignup(toggle);
-//                 }} 
-//                 className="btn btn-warning btn-block">
-//                     {isSignup ? 'רשום? עבור למצב התחברות' : 'משתמש חדש? עבור למצב הרשמה'} 
-//                 </button>
-//             </form>
-//         </div>
-//     )
-
-//     return (
-//         <div>
-//             {registerForm()} 
-//         </div>
-//     )
-// }
-
-// export default Register;
