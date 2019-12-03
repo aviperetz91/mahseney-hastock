@@ -25,7 +25,7 @@ router.post('/register', (req, res) => {
     User.findOne({ email: req.body.email })
         .then(user => {
             if(user) {
-                errors.email = 'Email already exists';
+                errors.email = 'האימייל שהזנת כבר קיים במערכת';
                 return res.status(400).json(errors);
             }
             else {
@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
         .then(user => {
             // Check for user
             if(!user) {
-                errors.email = 'User not found';
+                errors.email = 'משתמש לא נמצא';
                 return res.status(404).json(errors);
             }
 
@@ -87,7 +87,7 @@ router.post('/login', (req, res) => {
                         return res.json({ token, user: { _id, email, name, role } }); 
                     }
                     else {
-                        errors.password = 'Password incorrect';
+                        errors.password = 'הסיסמא אינה נכונה';
                         return res.status(400).json(errors);
                     }
                 })
@@ -100,7 +100,7 @@ router.post('/login', (req, res) => {
 // @access  Public
 router.get('/logout', (req, res) => {
     res.clearCookie("t");
-    res.json({ message: "Logout success" });
+    res.json({ message: "התנתקת בהצלחה" });
 })
 
 module.exports = router;

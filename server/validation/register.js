@@ -11,35 +11,35 @@ const validateRegisterInput = data => {
     data.confirm = !isEmpty(data.confirm) ? data.confirm : '';
 
     if(!validator.isLength(data.name, { min: 2, max: 30 })) {
-        errors.name = 'Name must be between 2 and 30 characters';
+        errors.name = 'השם חייב להכיל בין 2-30 תווים';
     }
 
     if(validator.isEmpty(data.name)) {
-        errors.name = 'Name field is required';
+        errors.name = 'השם הוא שדה חובה';
     }
 
     if(!validator.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
+        errors.email = 'כתובת אימייל לא תקינה';
     }
 
     if(validator.isEmpty(data.email)) {
-        errors.email = 'Email field is required';
+        errors.email = 'אימייל הוא שדה חובה';
     }
 
     if(!validator.isLength(data.password, { min: 6, max: 12 })) {
-        errors.password = 'Password must be between 6 and 12 characters';
+        errors.password = 'הסיסמא חייבת להכיל בין 6-12 תווים';
     }
 
     if(validator.isEmpty(data.password)) {
-        errors.password = 'Password field is required';
+        errors.password = 'סיסמא זה שדה חובה';
     }
 
     if(!validator.equals(data.password, data.confirm)) {
-        errors.confirm = 'Passwords must match';
+        errors.confirm = 'הסיסמאות חייבות להתאים';
     }
 
     if(validator.isEmpty(data.confirm)) {
-        errors.confirm = 'Confirm password field is required';
+        errors.confirm = 'אימות סיסמא הוא שדה חובה';
     }
 
     
