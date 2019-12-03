@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import Toolbar from './components/core/Toolbar/Toolbar';
-import Routes from './Routes/Routes';
+import Toolbar from './components/core/Toolbar';
+import Routes from './routes/Routes';
 
 const App = () => (
   <Fragment>

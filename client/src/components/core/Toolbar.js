@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../images/logo.jpg';
+import logo from '../../images/logo.jpg';
 import { FaBars } from 'react-icons/fa'
 import { withRouter } from 'react-router-dom';
 
-import colors from '../../../constants/colors';
+import colors from '../../constants/colors';
 
 const isActive = (history, path) => {
     if(history.location.pathname === path) {
@@ -31,7 +31,10 @@ const Toolbar = props => (
             </ul>
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <Link style={isActive(props.history, '/auth')} className="nav-link" to='/auth'>הרשמה / התחברות</Link>
+                    <Link style={isActive(props.history, '/login')} className="nav-link" to='/login'>התחברות</Link>
+                </li>
+                <li className="nav-item">
+                    <Link style={isActive(props.history, '/register')} className="nav-link" to='/register'>הרשמה</Link>
                 </li>
             </ul>
         </div>
