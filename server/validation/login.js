@@ -9,19 +9,19 @@ const validateLoginInput = data => {
     data.password = !isEmpty(data.password) ? data.password : '';
 
     if(!validator.isEmail(data.email)) {
-        errors.email = 'Email is invalid';
+        errors.email = 'כתובת מייל לא תקינה';
     }
 
     if(validator.isEmpty(data.email)) {
-        errors.email = 'Email field is required';
+        errors.email = 'אימייל הוא שדה חובה';
     }
 
     if(!validator.isLength(data.password, { min: 6, max: 12 })) {
-        errors.password = 'Password must be between 6 and 12 characters';
+        errors.password = 'הסיסמא חייבת להכיל בין 6-12 תווים';
     }
 
     if(validator.isEmpty(data.password)) {
-        errors.password = 'Password field is required';
+        errors.password = 'סיסמא היא שדה חובה';
     }
 
     return {

@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import classnames from 'classnames';
 import { API } from '../../config';
 
-const Register = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+const Login = props => {
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+        errors: {},
+    })
 
+    const { email, password, errors } = values;
 
     const submitHandler = event => {
         event.preventDefault();
@@ -16,8 +20,14 @@ const Register = () => {
 
     const loginHandler = user => {
         return axios.post(`${API}/login`, user)
-        .then(response => console.log(response.data))
-        .catch(err => setErrors(err.response.data))
+        .then(response => {
+            console.log(response.data);
+            setValues({...values, errors: {}, success: true});
+            props.history.replace('/');
+        })
+        .catch(err => {
+            setValues({...values, errors: err.response.data, success: false})
+        })
     }
 
     const showForm = () => (
@@ -31,7 +41,7 @@ const Register = () => {
                         type="email" 
                         placeholder="כתובת מייל" 
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}    
+                        onChange={(event) => setValues({...values, email: event.target.value})}    
                     />
                     { errors.email ?
                         <div className="invalid-feedback"> {errors.email} </div>
@@ -45,7 +55,7 @@ const Register = () => {
                         type="password" 
                         placeholder="סיסמא" 
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(event) => setValues({...values, password: event.target.value})}
                     />
                     { errors.password ?
                         <div className="invalid-feedback"> {errors.password} </div>
@@ -72,4 +82,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default withRouter(Login);

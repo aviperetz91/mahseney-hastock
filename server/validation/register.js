@@ -11,15 +11,15 @@ const validateRegisterInput = data => {
     data.confirm = !isEmpty(data.confirm) ? data.confirm : '';
 
     if(!validator.isLength(data.name, { min: 2, max: 30 })) {
-        errors.name = 'השם חייב להכיל בין 2-30 תווים';
+        errors.name = 'השם יכול להכיל בין 2-30 תווים';
     }
 
     if(validator.isEmpty(data.name)) {
-        errors.name = 'השם הוא שדה חובה';
+        errors.name = 'שם הוא שדה חובה';
     }
 
     if(!validator.isEmail(data.email)) {
-        errors.email = 'כתובת אימייל לא תקינה';
+        errors.email = 'כתובת מייל לא תקינה';
     }
 
     if(validator.isEmpty(data.email)) {
@@ -31,7 +31,7 @@ const validateRegisterInput = data => {
     }
 
     if(validator.isEmpty(data.password)) {
-        errors.password = 'סיסמא זה שדה חובה';
+        errors.password = 'סיסמא היא שדה חובה';
     }
 
     if(!validator.equals(data.password, data.confirm)) {

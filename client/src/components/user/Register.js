@@ -1,37 +1,42 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 import { API } from '../../config';
 
-const Register = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
-    const [errors, setErrors] = useState({});
+const Register = props => {
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+        password: '',
+        confirm: '',
+        errors: {},
+        success: false,
+        emailIsValid: false,
+        passwordIsValid: false
+    })
 
-    const [emailIsValid, setEmailIsValid] = useState(false);
-    const [passwordIsValid, setPasswordIsValid] = useState(false);
+    const { name, email, password, confirm, errors, success, emailIsValid, passwordIsValid } = values;
 
     const emailChangeHandler = event => {
         const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         if(!reg.test(event.target.value)) {
-            setEmailIsValid(false);
+            setValues({...values, emailIsValid: false})
         }
         else{
-            setEmailIsValid(true);
+            setValues({...values, emailIsValid: true})
         }
-        setEmail(event.target.value);
+        setValues({...values, email: event.target.value})
     }
 
     const passwordChangeHandler = event => {
         if(event.target.value.length < 6 || event.target.value.length > 12 ) {
-            setPasswordIsValid(false);
+            setValues({...values, passwordIsValid: false})
         }
         else{
-            setPasswordIsValid(true);
+            setValues({...values, passwordIsValid: true})
         }
-        setPassword(event.target.value);
+        setValues({...values, password: event.target.value})
     }
 
     const submitHandler = event => {
@@ -41,8 +46,13 @@ const Register = () => {
 
     const signupHandler = user => {
         return axios.post(`${API}/register`, user)
-        .then(response => console.log(response.data))
-        .catch(err => setErrors(err.response.data))
+        .then(response => {
+            console.log(response.data);
+            setValues({...values, errors: {}, success: true})
+        })
+        .catch(err => {
+            setValues({...values, errors: err.response.data, success: false})
+        })
     }
 
     const showForm = () => (
@@ -56,7 +66,7 @@ const Register = () => {
                         type="text"
                         placeholder="שם מלא" 
                         value={name}
-                        onChange={(event) => setName(event.target.value)}    
+                        onChange={(event) => setValues({...values, name: event.target.value})}    
                     />
                     { errors.name ?
                         <div className="invalid-feedback"> {errors.name} </div>
@@ -77,7 +87,7 @@ const Register = () => {
                     : null } 
                     { !emailIsValid && !errors.email ?
                     <small className="text-muted p-2" >
-                    אנא הזן כתובת חוקית, למשל - username@gmail.com
+                      כתובת חוקית, למשל - username@gmail.com
                     </small> : null }
                 </div>
                 <div className="form-group">
@@ -106,7 +116,7 @@ const Register = () => {
                         type="password" 
                         placeholder="אמת סיסמא" 
                         value={confirm}
-                        onChange={(event) => setConfirm(event.target.value)}    
+                        onChange={(event) => setValues({...values, confirm: event.target.value})}    
                     />
                     { errors.confirm ?
                         <div className="invalid-feedback"> {errors.confirm} </div>
@@ -125,9 +135,17 @@ const Register = () => {
     return (
         <div className="container w-70 pt-3">
             <div className="d-flex justify-content-center align-items-cener">
-                <h1 className="display-5 text-dark font-weight-bold">כניסה למערכת</h1>
+                <h1 className="display-5 text-dark font-weight-bold">הרשמה</h1>
             </div>
             <hr />
+            { success ?
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+            נרשמת בהצלחה! <Link className="alert-link" to='/login'>לחץ כאן</Link> כדי להתחבר.
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> 
+             : null }
             {showForm()} 
         </div>
     )

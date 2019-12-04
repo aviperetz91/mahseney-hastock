@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import logo from '../../images/logo.jpg';
 import { FaBars } from 'react-icons/fa'
-import { withRouter } from 'react-router-dom';
+
 
 import colors from '../../constants/colors';
 
