@@ -10,7 +10,7 @@ import colors from '../../constants/colors';
 
 const isActive = (history, path) => {
     if(history.location.pathname === path) {
-        return { color: 'white', fontSize: 17, fontWeight: 'bold' }
+        return { color: 'white', fontWeight: 'bold' }
     }
     else {
         return { color: '#eee' }
@@ -45,7 +45,7 @@ const Toolbar = props => {
             <ul className="navbar-nav">   
                 <li className="nav-item">
                     <span className="nav-link" style={{color: '#eee'}} onClick={logoutHandler}>
-                        מחובר/ת בתור <span style={{textDecoration: 'underline'}}>{user.name}</span>, 
+                        {/* מחובר/ת בתור <span style={{textDecoration: 'underline'}}>{user.name}</span>,  */}
                         <span style={{cursor: 'pointer'}}> התנתק </span>
                     </span>
                 </li> 
@@ -65,6 +65,9 @@ const Toolbar = props => {
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link style={isActive(props.history, '/')} className="nav-link" to='/'>ראשי <span className="sr-only"></span></Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link style={isActive(props.history, '/user/dashboard')} className="nav-link" to='user/dashboard'> החשבון שלי </Link>
                     </li>
                 </ul>
                 {authLinks}

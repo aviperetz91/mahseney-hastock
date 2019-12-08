@@ -1,4 +1,5 @@
 export default {
     main: '#c3262f',
-    back: '#f4f4f4',
+    second: '#ff9933',
+    back: '#f4f4f4', 
 }

@@ -75,9 +75,9 @@ router.post('/login', (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(isMatch) {
-                        // generate a signed token with user id, name  and secret
+                        // generate a signed token with user details and secret
                         jwt.sign(
-                            { id: user._id, name: user.name },
+                            { id: user._id, name: user.name, email: user.email, history: user.history, role: user.role },
                             process.env.JWT_SECRET,
                             { expiresIn: 3600 },
                             (err, token) => {
