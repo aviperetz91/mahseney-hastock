@@ -66,9 +66,14 @@ const Toolbar = props => {
                     <li className="nav-item">
                         <Link style={isActive(props.history, '/')} className="nav-link" to='/'>ראשי <span className="sr-only"></span></Link>
                     </li>
+                    { isAuthenticated && user.role === 1 ?
                     <li className="nav-item">
-                        <Link style={isActive(props.history, '/user/dashboard')} className="nav-link" to='user/dashboard'> החשבון שלי </Link>
-                    </li>
+                        <Link style={isActive(props.history, '/admin/dashboard')} className="nav-link" to='/admin/dashboard'> תפריט ניהול </Link>
+                    </li> : null }
+                    { isAuthenticated && user.role === 0 ? 
+                    <li className="nav-item">
+                        <Link style={isActive(props.history, '/user/dashboard')} className="nav-link" to='/user/dashboard'> החשבון שלי </Link>
+                    </li> : null }
                 </ul>
                 {authLinks}
             </div>
