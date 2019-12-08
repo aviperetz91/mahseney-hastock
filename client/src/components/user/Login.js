@@ -1,32 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
-import { API } from '../../config';
+import * as authActions from '../../store/actions/authActions';
+
 
 const Login = props => {
     const [values, setValues] = useState({
         email: '',
         password: '',
-        errors: {},
     })
 
-    const { email, password, errors } = values;
+    const { email, password } = values;
 
+    const [errors, setErrors] = useState({});
+
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            props.history.replace('/');
+        }
+    }, [isAuthenticated, props.history])
+
+    
     const submitHandler = event => {
         event.preventDefault();
-        loginHandler({ email, password })
-    }
-
-    const loginHandler = user => {
-        return axios.post(`${API}/login`, user)
-        .then(response => {
-            console.log(response.data);
-            setValues({...values, errors: {}, success: true});
-            props.history.replace('/');
-        })
-        .catch(err => {
-            setValues({...values, errors: err.response.data, success: false})
+        dispatch(authActions.login({ email, password }))
+        .then(data => {
+            if(data) {
+                setErrors(data);
+            }
+            else {
+                setErrors({});  
+            }
         })
     }
 

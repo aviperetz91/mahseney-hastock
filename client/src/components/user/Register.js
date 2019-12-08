@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
-import { API } from '../../config';
+import { useSelector, useDispatch } from 'react-redux';
+import * as authActions from '../../store/actions/authActions';
+
 
 const Register = props => {
     const [values, setValues] = useState({
@@ -10,48 +12,58 @@ const Register = props => {
         email: '',
         password: '',
         confirm: '',
-        errors: {},
-        success: false,
-        emailIsValid: false,
-        passwordIsValid: false
     })
 
-    const { name, email, password, confirm, errors, success, emailIsValid, passwordIsValid } = values;
+    const { name, email, password, confirm } = values;
+    
+    const [errors, setErrors] = useState({});
+    const [success, setSuccess] = useState(false);
+
+    const [emailIsValid, setEmailIsValid] = useState(false);
+    const [passwordIsValid, setPasswordIsValid] = useState(false);
+
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            props.history.replace('/');
+        }
+    }, [isAuthenticated, props.history])
 
     const emailChangeHandler = event => {
         const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         if(!reg.test(event.target.value)) {
-            setValues({...values, emailIsValid: false})
+            setEmailIsValid(false);
         }
         else{
-            setValues({...values, emailIsValid: true})
+            setEmailIsValid(true);
         }
         setValues({...values, email: event.target.value})
     }
 
     const passwordChangeHandler = event => {
         if(event.target.value.length < 6 || event.target.value.length > 12 ) {
-            setValues({...values, passwordIsValid: false})
+            setPasswordIsValid(false);
         }
         else{
-            setValues({...values, passwordIsValid: true})
+            setPasswordIsValid(true);
         }
         setValues({...values, password: event.target.value})
     }
 
     const submitHandler = event => {
         event.preventDefault();
-        signupHandler({name, email, password, confirm})
-    }
-
-    const signupHandler = user => {
-        return axios.post(`${API}/register`, user)
-        .then(response => {
-            console.log(response.data);
-            setValues({...values, errors: {}, success: true})
-        })
-        .catch(err => {
-            setValues({...values, errors: err.response.data, success: false})
+        dispatch(authActions.register({name, email, password, confirm}))
+        .then(data => {
+            if(data._id) {
+                setErrors({});
+                setSuccess(true);
+            }
+            else {
+                setErrors(data);
+                setSuccess(false);
+            }
         })
     }
 
@@ -146,9 +158,9 @@ const Register = props => {
                 </button>
             </div> 
              : null }
-            {showForm()} 
+            {showForm()}
         </div>
     )
 }
 
-export default Register;
+export default withRouter(Register);

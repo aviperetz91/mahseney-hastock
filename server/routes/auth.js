@@ -71,20 +71,22 @@ router.post('/login', (req, res) => {
                 errors.email = 'משתמש לא נמצא';
                 return res.status(404).json(errors);
             }
-
             // Check password
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(isMatch) {
-                        // generate a signed token with user id and secret
-                        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-
-                        // persist the token as 't' in cookie with expiry date
-                        res.cookie("t", token, { expire: new Date() + 9999 });
-
-                        // return response with user and token to frontend client
-                        const { _id, name, email, role } = user;
-                        return res.json({ token, user: { _id, email, name, role } }); 
+                        // generate a signed token with user id, name  and secret
+                        jwt.sign(
+                            { id: user._id, name: user.name },
+                            process.env.JWT_SECRET,
+                            { expiresIn: 3600 },
+                            (err, token) => {
+                                res.json({
+                                    success: true,
+                                    token: 'Bearer ' + token
+                                });
+                            }
+                        );
                     }
                     else {
                         errors.password = 'הסיסמא אינה נכונה';
@@ -94,13 +96,5 @@ router.post('/login', (req, res) => {
         })
 });
 
-
-// @route   GET api/logout
-// @desc    Logout user
-// @access  Public
-router.get('/logout', (req, res) => {
-    res.clearCookie("t");
-    res.json({ message: "התנתקת בהצלחה" });
-})
 
 module.exports = router;
