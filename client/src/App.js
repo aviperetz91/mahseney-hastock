@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
@@ -35,10 +35,10 @@ const App = () => {
   checkJwtInLS(dispatch);
 
   return (
-    <Fragment>
+    <BrowserRouter>
       <Toolbar />
       <Routes />
-    </Fragment>
+    </BrowserRouter>
   )
 }
 
