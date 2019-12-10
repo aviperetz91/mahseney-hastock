@@ -4,8 +4,7 @@
   "description": "Shop app for mahseney hastock",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "start": "nodemon server.js"
   },
   "author": "Avi Peretz",
   "license": "ISC",

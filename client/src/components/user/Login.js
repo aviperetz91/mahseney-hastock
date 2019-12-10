@@ -25,21 +25,30 @@ const Login = props => {
         }
     }, [isAuthenticated, props.history])
 
-    
+    const emailChangeHandler = event => {
+        setErrors({...errors, email: ''});
+        setValues({...values, email: event.target.value})
+    }
+
+    const passwordChangeHandler = event => {
+        setErrors({...errors, password: ''});
+        setValues({...values, password: event.target.value})
+    }
+
     const submitHandler = event => {
         event.preventDefault();
         dispatch(authActions.login({ email, password }))
         .then(data => {
-            if(data) {
-                setErrors(data);
+            if(data._id) {
+                setErrors({});  
             }
             else {
-                setErrors({});  
+                setErrors(data);
             }
         })
     }
 
-    const showForm = () => (
+    const showForm = (
         <div className="container d-flex justify-content-center">
             <form className="col-sm-12 col-md-6 col-lg-5">
                 <div className="form-group">
@@ -50,7 +59,7 @@ const Login = props => {
                         type="email" 
                         placeholder="כתובת מייל" 
                         value={email}
-                        onChange={(event) => setValues({...values, email: event.target.value})}    
+                        onChange={emailChangeHandler}    
                     />
                     { errors.email ?
                         <div className="invalid-feedback"> {errors.email} </div>
@@ -64,7 +73,7 @@ const Login = props => {
                         type="password" 
                         placeholder="סיסמא" 
                         value={password}
-                        onChange={(event) => setValues({...values, password: event.target.value})}
+                        onChange={passwordChangeHandler}
                     />
                     { errors.password ?
                         <div className="invalid-feedback"> {errors.password} </div>
@@ -86,7 +95,7 @@ const Login = props => {
                 <h1 className="display-5 text-dark font-weight-bold">התחברות</h1>
             </div>
             <hr />
-            {showForm()} 
+            {showForm} 
         </div>
     )
 }

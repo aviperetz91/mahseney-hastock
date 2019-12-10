@@ -1,11 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import authReducer from '../store/reducers/authReducer';
+import categoriesReducer from '../store/reducers/categoriesReducer';
 
 const initialState = {}
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    categories: categoriesReducer
 })
 
 const store = createStore(

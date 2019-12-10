@@ -13,7 +13,7 @@ const UserDashboard = props => {
         }
     }, [isAuthenticated, props.history, user.role])
 
-    const userLinks = () => (
+    const userLinks = (
         <div className="card">
             <h3 className="card-header">אפשרויות</h3>
             <ul className="list-group">
@@ -27,7 +27,7 @@ const UserDashboard = props => {
         </div>
     )
 
-    const userInfo = () => (
+    const userInfo = (
         <div className="card">
             <h3 className="card-header">פרטי חשבון</h3>
             <ul className="list-group">
@@ -38,7 +38,7 @@ const UserDashboard = props => {
         </div>
     )
 
-    const ordersHistory = () => (
+    const ordersHistory = (
         <div className="card">
             <h3 className="card-header">ההזמנות שלי</h3>
             <ul className="list-group">
@@ -59,14 +59,14 @@ const UserDashboard = props => {
             <div className="container">
                 <div className="row mb-3">
                     <div className="col-sm-5 col-md-4 col-lg-3 mb-3">
-                        {userLinks()}
+                        {userLinks}
                     </div>
                     <div className="col-sm-7 col-md-8 col-lg-9">
-                        {userInfo()}
+                        {userInfo}
                     </div>
                 </div>
                 <div className="mb-3">
-                    {ordersHistory()}
+                    {ordersHistory}
                 </div>   
                 
             </div>

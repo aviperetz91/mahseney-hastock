@@ -46,10 +46,21 @@ router.post('/category/create/:userId', requireLogin, isAuth, isAdmin, (req, res
         return res.status(400).json(errors);
     }
 
-    const category = new Category(req.body);
-    category.save()
-        .then(category => res.json(category))
-        .catch(err => console.log(err));
+    const title = req.body.title;
+
+    Category.findOne({title})
+        .then(category => {
+            if(category) {
+                errors.title = "כבר קיימת קטגוריה בשם זה"
+                return res.status(400).json(errors);
+            }
+            else {
+                const category = new Category(req.body);
+                category.save()
+                .then(category => res.json(category))
+                .catch(err => console.log(err));
+            }
+        })
 });
 
 

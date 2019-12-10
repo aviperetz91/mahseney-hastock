@@ -77,7 +77,7 @@ router.post('/login', (req, res) => {
                     if(isMatch) {
                         // generate a signed token with user details and secret
                         jwt.sign(
-                            { id: user._id, name: user.name, email: user.email, history: user.history, role: user.role },
+                            { _id: user._id, name: user.name, email: user.email, history: user.history, role: user.role },
                             process.env.JWT_SECRET,
                             { expiresIn: 3600 },
                             (err, token) => {

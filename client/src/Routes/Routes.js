@@ -6,6 +6,7 @@ import Register from '../components/user/Register';
 import Login from '../components/user/Login';
 import UserDashboard from '../components/user/UserDashboard';
 import AdminDashboard from '../components/user/AdminDashboard';
+import AddCategory from '../components/admin/AddCategory';
 
 const Routes = () => {
 
@@ -16,6 +17,7 @@ const Routes = () => {
             <Route path='/login' exact component={Login} />
             <Route path='/user/dashboard' exact component={UserDashboard} />
             <Route path='/admin/dashboard' exact component={AdminDashboard} />
+            <Route path='/create/category' exact component={AddCategory} />
         </Switch>
     )
 }

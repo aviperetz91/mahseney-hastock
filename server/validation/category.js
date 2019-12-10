@@ -8,11 +8,11 @@ const validateCategoryInput = data => {
     data.title = !isEmpty(data.title) ? data.title : '';
 
     if(!validator.isLength(data.title, { min: 2, max: 30 })) {
-        errors.title = 'Title must be between 2 and 30 characters';
+        errors.title = 'הכותרת חייבת להכיל בין 2-30 תווים';
     }
 
     if(validator.isEmpty(data.title)) {
-        errors.title = 'Title field is required';
+        errors.title = 'כותרת היא שדה חובה';
     }
 
     return {

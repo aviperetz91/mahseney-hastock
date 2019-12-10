@@ -31,6 +31,11 @@ const Register = props => {
         }
     }, [isAuthenticated, props.history])
 
+    const nameChangeHandler = event => {
+        setErrors({...errors, name: ''});
+        setValues({...values, name: event.target.value})
+    }
+
     const emailChangeHandler = event => {
         const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
         if(!reg.test(event.target.value)) {
@@ -39,6 +44,7 @@ const Register = props => {
         else{
             setEmailIsValid(true);
         }
+        setErrors({...errors, email: ''});
         setValues({...values, email: event.target.value})
     }
 
@@ -49,7 +55,13 @@ const Register = props => {
         else{
             setPasswordIsValid(true);
         }
+        setErrors({...errors, password: ''});
         setValues({...values, password: event.target.value})
+    }
+
+    const confirmChangeHandler = event => {
+        setErrors({...errors, confirm: ''});
+        setValues({...values, confirm: event.target.value})
     }
 
     const submitHandler = event => {
@@ -67,7 +79,7 @@ const Register = props => {
         })
     }
 
-    const showForm = () => (
+    const showForm = (
         <div className="container d-flex justify-content-center">
             <form className="col-sm-12 col-md-6 col-lg-5">
                 <div className="form-group">
@@ -78,7 +90,7 @@ const Register = props => {
                         type="text"
                         placeholder="שם מלא" 
                         value={name}
-                        onChange={(event) => setValues({...values, name: event.target.value})}    
+                        onChange={nameChangeHandler}    
                     />
                     { errors.name ?
                         <div className="invalid-feedback"> {errors.name} </div>
@@ -128,7 +140,7 @@ const Register = props => {
                         type="password" 
                         placeholder="אמת סיסמא" 
                         value={confirm}
-                        onChange={(event) => setValues({...values, confirm: event.target.value})}    
+                        onChange={confirmChangeHandler}    
                     />
                     { errors.confirm ?
                         <div className="invalid-feedback"> {errors.confirm} </div>
@@ -158,7 +170,7 @@ const Register = props => {
                 </button>
             </div> 
              : null }
-            {showForm()}
+            {showForm}
         </div>
     )
 }

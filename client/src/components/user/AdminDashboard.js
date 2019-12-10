@@ -13,7 +13,7 @@ const AdminDashboard = props => {
         }
     }, [isAuthenticated, props.history, user.role])
 
-    const adminLinks = () => (
+    const adminLinks = (
         <div className="card">
             <h3 className="card-header">אפשרויות</h3>
             <ul className="list-group">
@@ -27,7 +27,7 @@ const AdminDashboard = props => {
         </div>
     )
 
-    const adminInfo = () => (
+    const adminInfo = (
         <div className="card">
             <h3 className="card-header">פרטי חשבון</h3>
             <ul className="list-group">
@@ -50,10 +50,10 @@ const AdminDashboard = props => {
             <div className="container">
                 <div className="row mb-3">
                     <div className="col-sm-5 col-md-4 col-lg-3 mb-3">
-                        {adminLinks()}
+                        {adminLinks}
                     </div>
                     <div className="col-sm-7 col-md-8 col-lg-9">
-                        {adminInfo()}
+                        {adminInfo}
                     </div>
                 </div>   
             </div>
