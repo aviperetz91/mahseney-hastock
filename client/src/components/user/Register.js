@@ -31,37 +31,29 @@ const Register = props => {
         }
     }, [isAuthenticated, props.history])
 
-    const nameChangeHandler = event => {
-        setErrors({...errors, name: ''});
-        setValues({...values, name: event.target.value})
-    }
-
-    const emailChangeHandler = event => {
-        const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-        if(!reg.test(event.target.value)) {
-            setEmailIsValid(false);
-        }
-        else{
-            setEmailIsValid(true);
-        }
-        setErrors({...errors, email: ''});
-        setValues({...values, email: event.target.value})
-    }
-
-    const passwordChangeHandler = event => {
-        if(event.target.value.length < 6 || event.target.value.length > 12 ) {
-            setPasswordIsValid(false);
-        }
-        else{
-            setPasswordIsValid(true);
-        }
-        setErrors({...errors, password: ''});
-        setValues({...values, password: event.target.value})
-    }
-
-    const confirmChangeHandler = event => {
-        setErrors({...errors, confirm: ''});
-        setValues({...values, confirm: event.target.value})
+    const changeHandler = field => {
+        return event => {
+            setSuccess(false);
+            setErrors({...errors, [field]: ''});
+            if(field === 'email') {
+                const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+                if(!reg.test(event.target.value)) {
+                    setEmailIsValid(false);
+                }
+                else{
+                    setEmailIsValid(true);
+                }
+            }
+            if(field === 'password') {
+                if(event.target.value.length < 6 || event.target.value.length > 12 ) {
+                    setPasswordIsValid(false);
+                }
+                else{
+                    setPasswordIsValid(true);
+                }
+            }
+            setValues({...values, [field]: event.target.value})
+        }   
     }
 
     const submitHandler = event => {
@@ -90,7 +82,7 @@ const Register = props => {
                         type="text"
                         placeholder="שם מלא" 
                         value={name}
-                        onChange={nameChangeHandler}    
+                        onChange={changeHandler('name')}    
                     />
                     { errors.name ?
                         <div className="invalid-feedback"> {errors.name} </div>
@@ -104,7 +96,7 @@ const Register = props => {
                         type="email" 
                         placeholder="כתובת מייל" 
                         value={email}
-                        onChange={emailChangeHandler}    
+                        onChange={changeHandler('email')}    
                     />
                     { errors.email ?
                         <div className="invalid-feedback"> {errors.email} </div>
@@ -122,7 +114,7 @@ const Register = props => {
                         type="password" 
                         placeholder="סיסמא" 
                         value={password}
-                        onChange={passwordChangeHandler}
+                        onChange={changeHandler('password')}
                     />
                     { errors.password ?
                         <div className="invalid-feedback"> {errors.password} </div>
@@ -140,7 +132,7 @@ const Register = props => {
                         type="password" 
                         placeholder="אמת סיסמא" 
                         value={confirm}
-                        onChange={confirmChangeHandler}    
+                        onChange={changeHandler('confirm')}    
                     />
                     { errors.confirm ?
                         <div className="invalid-feedback"> {errors.confirm} </div>

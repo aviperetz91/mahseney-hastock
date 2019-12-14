@@ -1,4 +1,4 @@
-import  {SET_CATEGORIES, CREATE_CATEGORY } from '../actions/categoriesActions';
+import  { SET_CATEGORIES, CREATE_CATEGORY } from '../actions/categoriesActions';
 import Category from '../../models/Category';
 
 const initialState = {

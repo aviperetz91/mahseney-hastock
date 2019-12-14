@@ -6,38 +6,20 @@ const ProductSchema = new mongoose.Schema({
     category: {
         type: ObjectId,
         ref: "Category",
-        required: true
     },
-    title: {
-        type: String,
-        trim: true,
-        required: true,
-    },
+    title: String,
     photo: {
         data: Buffer,
         contentType: String
     },
-    description: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        trim: true,
-        required: true,
-    },
-    quantity: {
-        type: Number
-    },
+    description: String,
+    price: Number,
+    quantity: Number,
     sold: {
         type: Number,
         default: 0
     },
-    shipping: {
-        required: false,
-        type: Boolean
-    }
-
+    shipping: Boolean,
 }, {timestamps: true});
 
 module.exports = mongoose.model('Product', ProductSchema);

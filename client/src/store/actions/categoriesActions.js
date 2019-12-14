@@ -10,6 +10,7 @@ export const fetchCategories = () => {
         .then(response => {
             dispatch({ type: SET_CATEGORIES, categories: response.data })
         })
+        .catch(err => console.log(err));
     }
 }
 

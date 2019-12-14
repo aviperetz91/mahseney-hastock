@@ -31,24 +31,24 @@ router.post('/product/create/:userId', requireLogin, isAuth, isAdmin, (req, res)
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
         if(err) {
-            errors.email = 'Image size should be less than 1MB';
+            errors.photo = 'העלאת התמונה לא התאפשרה';
             return res.status(400).json(errors);
         }
-
-        const { errors, isValid } = validateProductInput(fields);
+        
+        const { errors, isValid } = validateProductInput(fields, files);
 
         // Check validation
         if(!isValid) {
             return res.status(400).json(errors);
         }
-
-        let product = new Product(fields);
         
+        let product = new Product(fields);
+       
         // Check if there is a photo
         if(files.photo) {
             // Limits the image size to 1 MB
-            if(files.photo.size > 1000000) {
-                errors.email = 'Image could not be uploaded';
+            if(files.photo.size > 500000) {
+                errors.photo = 'התמונה צריכה להיות בגודל של עד 500kb';
                 return res.status(400).json(errors);
             }
             // Get access to file system in order to add the path to the product object

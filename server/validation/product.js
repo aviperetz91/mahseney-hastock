@@ -2,7 +2,7 @@ const validator = require('validator');
 const isEmpty = require('../validation/is-empty');
 
 
-const validateProductInput = data => {
+const validateProductInput = (data, file) => {
     let errors = {};
 
     data.category = !isEmpty(data.category) ? data.category : '';
@@ -12,44 +12,45 @@ const validateProductInput = data => {
     data.quantity = !isEmpty(data.quantity) ? data.quantity : '';
     data.shipping = !isEmpty(data.shipping) ? data.shipping : '';
 
+
+    if(isEmpty(file)) {
+        errors.photo = 'חובה לבחור תמונה';
+    }
+
     if(validator.isEmpty(data.category)) {
-        errors.category = 'Category field is required';
+        errors.category = 'חובה לבחור קטגוריה';
     }
 
     if(!validator.isLength(data.title, { min: 2, max: 30 })) {
-        errors.title = 'Title must be between 2 and 30 characters';
+        errors.title = 'שם המוצר חייב להכיל בין 2-30 תווים';
     }
 
     if(validator.isEmpty(data.title)) {
-        errors.title = 'Title field is required';
+        errors.title = 'שם מוצר הוא שדה חובה';
     }
 
-    if(!validator.isLength(data.description, { min: 6, max: 200 })) {
-        errors.description = 'Description must be between 6 and 200 characters';
-    }
-
-    if(validator.isEmpty(data.description)) {
-        errors.description = 'Description field is required';
+    if(!validator.isLength(data.description, { min: 0, max: 200 })) {
+        errors.description = 'תיאור המוצר לא יכול להכיל יותר מ - 200 תווים';
     }
 
     if(!validator.isNumeric(data.price)) {
-        errors.price = 'Price must be a number';
+        errors.price = 'שדה זה חייב להכיל מספר';
     }
     
     if(validator.isEmpty(data.price)) {
-        errors.price = 'Price field is required';
+        errors.price = 'מחיר הוא שדה חובה';
     }
 
     if(!validator.isNumeric(data.quantity)) {
-        errors.quantity = 'Quantity must be a number';
+        errors.quantity = 'שדה זה חייב להכיל מספר';
     }
     
     if(validator.isEmpty(data.quantity)) {
-        errors.quantity = 'Quantity field is required';
+        errors.quantity = 'כמות הוא שדה חובה';
     }
 
     if(validator.isEmpty(data.shipping)) {
-        errors.shipping = 'Shipping field is required';
+        errors.shipping = 'חובה לבחור אם קיים משלוח או לא';
     }
 
     return {

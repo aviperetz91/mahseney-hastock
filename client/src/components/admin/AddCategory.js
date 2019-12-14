@@ -58,7 +58,7 @@ const AddCategory = props => {
                         <div className="invalid-feedback"> {errors.title} </div>
                     : null }
                 </div>
-                <button className="btn btn-block btn-outline-danger" onClick={submitHandler}> 
+                <button className="btn btn-block btn-danger" onClick={submitHandler}> 
                     הוסף קטגוריה
                 </button>
             </form>
