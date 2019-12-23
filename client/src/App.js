@@ -16,6 +16,8 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchProducts());
+    dispatch(fetchProducts('sold'));
+    dispatch(fetchProducts('createdAt'));
   },[dispatch])
 
   return (

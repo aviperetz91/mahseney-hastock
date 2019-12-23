@@ -31,7 +31,7 @@ const AddProduct = props => {
             props.history.replace('/login');
         }
         setProductData({...productData, formData: new FormData()})
-    }, [isAuthenticated, props.history, user.role, productData])
+    }, [isAuthenticated, props.history, user.role])
 
     const changeHandler = field => {
         return event => {

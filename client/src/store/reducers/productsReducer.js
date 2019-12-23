@@ -1,8 +1,10 @@
-import  { SET_PRODUCTS, CREATE_PRODUCT } from '../actions/productsActions';
+import  { CREATE_PRODUCT, SET_PRODUCTS, SET_PRODUCTS_BY_SELL, SET_PRODUCTS_BY_ARRIVAL } from '../actions/productsActions';
 import Product from '../../models/Product';
 
 const initialState = {
-    products: []
+    products: [],
+    productsBySell: [],
+    productsByArrival: []
 }
  
 const productsReducer = (state = initialState, action) => {
@@ -30,7 +32,17 @@ const productsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: action.products
-            }    
+            }   
+        case SET_PRODUCTS_BY_SELL: 
+            return {
+                ...state,
+                productsBySell: action.products
+            } 
+        case SET_PRODUCTS_BY_ARRIVAL: 
+            return {
+                ...state,
+                productsByArrival: action.products
+            } 
         default:
             return state
     }

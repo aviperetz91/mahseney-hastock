@@ -32,10 +32,10 @@ const Toolbar = props => {
     let authLinks = (
         <ul className="navbar-nav">
             <li className="nav-item">
-                <Link style={isActive(props.history, '/login')} className="nav-link" to='/login'>התחברות</Link>
+                <Link style={isActive(props.history, '/login')} className="nav-link" to='/login' data-toggle="collapse" data-target="#navbarSupportedContent">התחברות</Link>
             </li>
             <li className="nav-item">
-                <Link style={isActive(props.history, '/register')} className="nav-link" to='/register'>הרשמה</Link>
+                <Link style={isActive(props.history, '/register')} className="nav-link" to='/register' data-toggle="collapse" data-target="#navbarSupportedContent">הרשמה</Link>
             </li> 
         </ul>
     )
@@ -46,7 +46,7 @@ const Toolbar = props => {
                 <li className="nav-item">
                     <span className="nav-link" style={{color: '#eee'}} onClick={logoutHandler}>
                         {/* מחובר/ת בתור <span style={{textDecoration: 'underline'}}>{user.name}</span>,  */}
-                        <span style={{cursor: 'pointer'}}> התנתק </span>
+                        <span style={{cursor: 'pointer'}} data-toggle="collapse" data-target="#navbarSupportedContent"> התנתק </span>
                     </span>
                 </li> 
             </ul> 
@@ -64,15 +64,15 @@ const Toolbar = props => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <Link style={isActive(props.history, '/')} className="nav-link" to='/'>ראשי <span className="sr-only"></span></Link>
+                        <Link style={isActive(props.history, '/')} className="nav-link" to='/' data-toggle="collapse" data-target="#navbarSupportedContent">ראשי <span className="sr-only"></span></Link>
                     </li>
                     { isAuthenticated && user.role === 1 ?
                     <li className="nav-item">
-                        <Link style={isActive(props.history, '/admin/dashboard')} className="nav-link" to='/admin/dashboard'> תפריט ניהול </Link>
+                        <Link style={isActive(props.history, '/admin/dashboard')} className="nav-link" to='/admin/dashboard' data-toggle="collapse" data-target="#navbarSupportedContent"> תפריט ניהול </Link>
                     </li> : null }
                     { isAuthenticated && user.role === 0 ? 
                     <li className="nav-item">
-                        <Link style={isActive(props.history, '/user/dashboard')} className="nav-link" to='/user/dashboard'> החשבון שלי </Link>
+                        <Link style={isActive(props.history, '/user/dashboard')} className="nav-link" to='/user/dashboard' data-toggle="collapse" data-target="#navbarSupportedContent"> החשבון שלי </Link>
                     </li> : null }
                 </ul>
                 {authLinks}

@@ -132,7 +132,7 @@ router.delete('/product/:productId/:userId', requireLogin, isAuth, isAdmin, (req
 router.get('/products', (req, res) => {
     let order = req.query.order ? req.query.order : 'asc';
     let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
-    let limit = req.query.limit ? +req.query.limit : 6;
+    let limit = req.query.limit ? +req.query.limit : undefined;
 
     Product.find()
         .select('-photo')
