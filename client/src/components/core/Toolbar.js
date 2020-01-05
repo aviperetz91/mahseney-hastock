@@ -54,7 +54,7 @@ const Toolbar = props => {
     }
 
     return (
-        <nav style={{backgroundColor: colors.main}} className="navbar navbar-expand-lg navbar-light">
+        <nav style={{backgroundColor: colors.main, paddingTop: 4, paddingBottom: 4}} className="navbar navbar-expand-lg navbar-light">
             <a className="navbar-brand" href="/">
                 <img src={logo} style={{width: 220}} alt="logo"></img>
             </a>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createProduct } from '../../store/actions/productsActions';
+import { createProduct } from '../../../store/actions/productsActions';
 import classnames from 'classnames';
 
 

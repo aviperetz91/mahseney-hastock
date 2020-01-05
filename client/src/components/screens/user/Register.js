@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import * as authActions from '../../store/actions/authActions';
+import * as authActions from '../../../store/actions/authActions';
 
 
 const Register = props => {

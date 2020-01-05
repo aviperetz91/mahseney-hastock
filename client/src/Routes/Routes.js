@@ -2,12 +2,12 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from '../components/core/Home';
-import Register from '../components/user/Register';
-import Login from '../components/user/Login';
-import UserDashboard from '../components/user/UserDashboard';
-import AdminDashboard from '../components/user/AdminDashboard';
-import AddCategory from '../components/admin/AddCategory';
-import AddProduct from '../components/admin/AddProduct';
+import Register from '../components/screens/user/Register';
+import Login from '../components/screens/user/Login';
+import UserDashboard from '../components/screens/user/UserDashboard';
+import AdminDashboard from '../components/screens/user/AdminDashboard';
+import AddCategory from '../components/screens/admin/AddCategory';
+import AddProduct from '../components/screens/admin/AddProduct';
 
 const Routes = () => {
 

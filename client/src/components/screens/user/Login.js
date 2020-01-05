@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
-import * as authActions from '../../store/actions/authActions';
+import * as authActions from '../../../store/actions/authActions';
 
 
 const Login = props => {
