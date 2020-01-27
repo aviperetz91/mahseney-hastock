@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Home from '../components/core/Home';
+import Home from '../components/screens/Home';
 import Register from '../components/screens/user/Register';
 import Login from '../components/screens/user/Login';
 import UserDashboard from '../components/screens/user/UserDashboard';
 import AdminDashboard from '../components/screens/user/AdminDashboard';
 import AddCategory from '../components/screens/admin/AddCategory';
 import AddProduct from '../components/screens/admin/AddProduct';
+import Shop from '../components/screens/Shop';
 
 const Routes = () => {
 
@@ -20,6 +21,7 @@ const Routes = () => {
             <Route path='/admin/dashboard' exact component={AdminDashboard} />
             <Route path='/create/category' exact component={AddCategory} />
             <Route path='/create/product' exact component={AddProduct} />
+            <Route path='/shop' exact component={Shop} />
         </Switch>
     )
 }

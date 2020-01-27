@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import logo_big from '../../images/logo_big.jpg';
-import Card from './Card';
-import Carousel from './Carousel';
+import Card from '../core/Card';
+import Carousel from '../core/Carousel';
 
 
 const Home = () => {
