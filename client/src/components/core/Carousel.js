@@ -6,7 +6,7 @@ import disposable2 from '../../images/disposable2.jpg';
 import kitchen from '../../images/kitchen.png';
 
 const Carousel = () => (
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleCaptions" className="carousel slide" data-ride="carousel">
         <ol className="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
