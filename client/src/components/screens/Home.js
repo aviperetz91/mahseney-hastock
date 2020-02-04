@@ -36,7 +36,7 @@ const Home = () => {
                     {/* <hr style={{ width: 100, height: 1, backgroundColor: "#c3262f" }} /> */}
                     <div className="row justify-content-center mt-4">
                         {productsBySell.map((product => (
-                            <div key={product._id} className="mb-3 col-sm-6 col-md-4 col-lg-3">
+                            <div key={product._id} className="mb-3 col-6 col-sm-6 col-md-4 col-lg-2">
                                 <Card
                                     _id={product._id}
                                     price={product.price}
@@ -53,7 +53,7 @@ const Home = () => {
                     {/* <hr style={{ width: 100, height: 1, backgroundColor: "#c3262f" }} /> */}
                     <div className="row justify-content-center mt-4">
                         {productsByArrival.map((product => (
-                            <div key={product._id} className="mb-3 col-sm-6 col-md-4 col-lg-3">
+                            <div key={product._id} className="mb-3 col-6 col-sm-6 col-md-4 col-lg-2">
                                 <Card
                                     _id={product._id}
                                     price={product.price}

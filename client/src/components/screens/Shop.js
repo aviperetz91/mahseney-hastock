@@ -32,7 +32,7 @@ const Shop = () => {
 
     return (
         <div className="p-3 row">
-            <div className="col-sm-12 col-md-12 col-lg-2">
+            <div className="col-sm-12 col-md-3 col-lg-2 pl-5">
                 <div className="font-weight-bold mb-2">סינון לפי קטגוריה</div>
                 {categories.map(category => (
                     <div className="list-unstyled" key={category._id}>
@@ -51,10 +51,10 @@ const Shop = () => {
                     </div>
                 ))}
             </div>
-            <div className="col-sm-0 col-md-0 col-lg-10">
+            <div className="col-sm-0 col-md-9 col-lg-10">
                 <div className="row">
                     {filtered.map(product => (
-                        <div key={product._id} className="mb-3 col-sm-6 col-md-4 col-lg-3">
+                        <div key={product._id} className="mb-3 col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2">
                             <Card
                                 _id={product._id}
                                 price={product.price}
