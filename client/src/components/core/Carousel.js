@@ -16,21 +16,21 @@ const Carousel = () => (
         </ol>
         <div className="carousel-inner">
             <div className="carousel-item active">
-                <img src={appliances} style={{ height: 350 }} className="d-block w-100" alt="..."></img>
+                <img src={appliances} style={{ height: 400 }} className="d-block w-100" alt="..."></img>
                 <div className="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </div>
             </div>
             <div className="carousel-item">
-                <img src={bath} style={{ height: 300 }} className="d-block w-100" alt="..."></img>
+                <img src={bath} style={{ height: 400 }} className="d-block w-100" alt="..."></img>
                 <div className="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
             <div className="carousel-item">
-                <img src={disposable2} style={{ height: 300 }} className="d-block w-100" alt="..."></img>
+                <img src={disposable2} style={{ height: 400 }} className="d-block w-100" alt="..."></img>
                 <div className="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -38,7 +38,7 @@ const Carousel = () => (
             </div>
 
             <div className="carousel-item">
-                <img src={kitchen} style={{ height: 300 }} className="d-block w-100" alt="..."></img>
+                <img src={kitchen} style={{ height: 400 }} className="d-block w-100" alt="..."></img>
                 <div className="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>

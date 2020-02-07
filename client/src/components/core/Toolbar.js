@@ -3,17 +3,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as authActions from '../../store/actions/authActions';
 
-import logo from '../../images/logo.jpg';
+// import logo from '../../images/logo.jpg';
+import logo_big from '../../images/logo_big.jpg';
 import { FaBars } from 'react-icons/fa';
 import colors from '../../constants/colors';
 
 
 const isActive = (history, path) => {
+    const style = {
+        color: '#454545', 
+        fontSize: 18, 
+        marginLeft: 10, 
+        marginRight: 10,
+        fontWeight: 'bold'
+    }
     if(history.location.pathname === path) {
-        return { color: 'white', fontWeight: 'bold' }
+        style.borderBottom = '2px solid #c3262f';
+        return style;
     }
     else {
-        return { color: '#eee' }
+        return style;
     }
 }
 
@@ -54,9 +63,9 @@ const Toolbar = props => {
     }
 
     return (
-        <nav style={{backgroundColor: colors.main, paddingTop: 4, paddingBottom: 4}} className="navbar navbar-expand-lg navbar-light">
+        <nav style={{backgroundColor: "white", paddingTop: 4, paddingBottom: 4}} className="navbar navbar-expand-lg navbar-light container">
             <a className="navbar-brand" href="/">
-                <img src={logo} style={{width: 220}} alt="logo"></img>
+                <img src={logo_big} style={{width: 150}} alt="logo"></img>
             </a>
             <button style={{borderColor: 'transparent'}} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <FaBars size={25} color='white'/>

@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div>
             <Carousel />
-            <div style={{ backgroundColor: "white" }} className="jumbotron jumbotron-fluid pt-5 pb-3 m-0">
+            {/* <div style={{ backgroundColor: "white" }} className="jumbotron jumbotron-fluid pt-5 pb-3 m-0">
                 <div className="container">
                     <h3 className="font-weight-bold text-center">
                         ברוכים הבאים למחסני הסטוק - כל מה שצריך לבית!
@@ -29,7 +29,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div style={{ paddingTop: 25, paddingBottom: 25 }}>
                 <div className="container">
                     <h3 className="font-weight-bold">מוצרים מובילים</h3>
