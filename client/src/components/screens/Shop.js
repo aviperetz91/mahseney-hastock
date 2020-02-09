@@ -6,81 +6,58 @@ import pricesRange from '../../constants/prices';
 const Shop = () => {
     const categories = useSelector(state => state.categories.categories)
     const products = useSelector(state => state.products.products);
-    const [filtered, setFiltered] = useState([]);
-    // let filtered = {
-    //     categories: [],
-    //     price: []
-    // };
+    const [filters, setFilters] = useState({
+        categoryId: "0",
+        priceId: "0",
+    })
 
-    const filterByCategory = categoryId => {
-        let byCategory = products.filter(product => {
-            return product.category._id === categoryId;
-        })
-        setFiltered(byCategory)
+    const displayRange = (price) => {
+        if (price._id > 0) {
+            return <div> <i className="fas fa-shekel-sign"></i> {price.name} </div>
+        } else {
+            return <div> {price.name} </div>
+        }
     }
 
-    const filterByPrice = priceRangeId => {
-        console.log(filtered);
-        let newfiltered = [];
-        switch (priceRangeId) {
-            case 0:
-                newfiltered = filtered;
-                setFiltered(newfiltered);
+    const filterHandler = () => {
+        // debugger;
+        let byCategory = [...products];
+        let byPrice = [];
+        
+        if (filters.categoryId === "0") {
+            byCategory = [...products];
+        }
+        else {
+            byCategory = products.filter((product) => product.category._id === filters.categoryId);
+        }
+
+        switch (filters.priceId) {
+            case "0":
+                byPrice = [...byCategory];
                 break;
-            case 1:
-                filtered.forEach(product => {
-                    if (product.price > 0 && product.price < 19.99) {
-                        newfiltered.push(product);
-                    }
-                })
-                setFiltered(newfiltered);
+            case "1":
+                byPrice = byCategory.filter((product => product.price > 0 && product.price <= 19.99));
                 break;
-            case 2:
-                filtered.forEach(product => {
-                    if (product.price > 19.99 && product.price < 49.99) {
-                        newfiltered.push(product)
-                    }
-                })
-                setFiltered(newfiltered);
+            case "2":
+                byPrice = byCategory.filter((product => product.price > 19.99 && product.price <= 49.99));
                 break;
-            case 3:
-                filtered.forEach(product => {
-                    if (product.price > 49.99 && product.price < 99.99) {
-                        newfiltered.push(product)
-                    }
-                })
-                setFiltered(newfiltered);
+            case "3":
+                byPrice = byCategory.filter((product => product.price > 49.99 && product.price <= 99.99));
                 break;
-            case 4:
-                filtered.forEach(product => {
-                    if (product.price > 99.99 && product.price < 199.99) {
-                        newfiltered.push(product)
-                    }
-                })
-                setFiltered(newfiltered);
+            case "4":
+                byPrice = byCategory.filter((product => product.price > 99.99 && product.price <= 199.99));
                 break;
-            case 5:
-                filtered.forEach(product => {
-                    if (product.price >= 199.99) ;
-                })
-                setFiltered(newfiltered);
+            case "5":
+                byPrice = byCategory.filter((product => product.price > 199.99));
                 break;
             default:
                 break;
         }
-    }
-
-
-    let displayRange = (range) => {
-        if (range._id > 0) {
-            return <div> <i className="fas fa-shekel-sign"></i> {range.name} </div>
-        } else {
-            return <div> {range.name} </div>
-        }
+        return byPrice;
     }
 
     return (
-        <div className="p-3 row">
+        <div className="p-3 row m-0">
             <div className="col-sm-12 col-md-3 col-lg-2 pl-5">
                 <div className="font-weight-bold mb-2">סינון לפי קטגוריה</div>
                 {categories.map(category => (
@@ -91,7 +68,7 @@ const Shop = () => {
                                 type="radio"
                                 name="category"
                                 id={category._id}
-                                onChange={() => filterByCategory(category._id)}
+                                onChange={() => setFilters({...filters, categoryId: category._id})}
                             ></input>
                             <label className="form-check-label" htmlFor={category._id}>
                                 {category.title}
@@ -100,26 +77,27 @@ const Shop = () => {
                     </div>
                 ))}
                 <div className="font-weight-bold mt-3 mb-2">סינון לפי מחיר</div>
-                {pricesRange.map(range => (
-                    <div className="list-unstyled" key={range._id}>
+                {pricesRange.map(price => (
+                    <div className="list-unstyled" key={price._id}>
                         <div className="form-check">
                             <input
                                 className="form-check-input"
                                 type="radio"
                                 name="price"
-                                id={range._id}
-                                onChange={() => filterByPrice(range._id)}
+                                id={price._id}
+                                onChange={() => setFilters({...filters, priceId: price._id})}
                             ></input>
-                            <label className="form-check-label" htmlFor={range._id}>
-                                {displayRange(range)}
+                            <label className="form-check-label" htmlFor={price._id}>
+                                {displayRange(price)}
                             </label>
                         </div>
                     </div>
                 ))}
             </div>
             <div className="col-sm-0 col-md-9 col-lg-10">
+                {/* {JSON.stringify(filters, null, 2)} */}
                 <div className="row">
-                    {filtered.map(product => (
+                    {filterHandler().map(product => (
                         <div key={product._id} className="mb-3 col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2">
                             <Card
                                 _id={product._id}
@@ -135,21 +113,3 @@ const Shop = () => {
 }
 
 export default Shop;
-
-
-
-
-// const toggleCategoryHandler = (category) => {
-//     // debugger;
-//     const categoryIndex = selectedCategories.indexOf(category._id);
-//     let categories = [...selectedCategories];
-//     if (categoryIndex === -1) {
-//         categories.push(category._id);
-//     }
-//     else {
-//         categories.splice(categoryIndex, 1);
-//     }
-//     console.log(categories);
-//     setSelectedCategories(categories);
-//     filterByCategory(categories);
-// }
