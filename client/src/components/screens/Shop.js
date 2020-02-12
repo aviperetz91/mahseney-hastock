@@ -20,7 +20,6 @@ const Shop = () => {
     }
 
     const filterHandler = () => {
-        // debugger;
         let byCategory = [...products];
         let byPrice = [];
         

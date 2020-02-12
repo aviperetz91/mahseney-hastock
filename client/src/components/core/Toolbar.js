@@ -12,9 +12,9 @@ import colors from '../../constants/colors';
 const isActive = (history, path) => {
     const style = {
         color: '#454545', 
-        fontSize: 18, 
-        marginLeft: 10, 
-        marginRight: 10,
+        fontSize: 16, 
+        margin: '0 15px',
+        padding: '6px 5px',
         fontWeight: 'bold'
     }
     if(history.location.pathname === path) {
@@ -27,9 +27,7 @@ const isActive = (history, path) => {
 }
 
 const Toolbar = props => {
-
     const dispatch = useDispatch();
-
     const auth = useSelector(state => state.auth);
     const { isAuthenticated, user } = auth;
 
@@ -53,7 +51,7 @@ const Toolbar = props => {
         authLinks = (
             <ul className="navbar-nav">   
                 <li className="nav-item">
-                    <span className="nav-link" style={{color: '#eee'}} onClick={logoutHandler}>
+                    <span className="nav-link" style={isActive(props.history, '/login')} onClick={logoutHandler}>
                         {/* מחובר/ת בתור <span style={{textDecoration: 'underline'}}>{user.name}</span>,  */}
                         <span style={{cursor: 'pointer'}} data-toggle="collapse" data-target="#navbarSupportedContent"> התנתק </span>
                     </span>
@@ -64,7 +62,7 @@ const Toolbar = props => {
 
     return (
         <nav style={{backgroundColor: "white", paddingTop: 4, paddingBottom: 4}} className="navbar navbar-expand-lg navbar-light container">
-            <a className="navbar-brand" href="/">
+            <a className="navbar-brand media" href="/">
                 <img src={logo_big} style={{width: 150}} alt="logo"></img>
             </a>
             <button style={{borderColor: 'transparent'}} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

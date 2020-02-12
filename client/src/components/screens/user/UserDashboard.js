@@ -15,7 +15,7 @@ const UserDashboard = props => {
 
     const userLinks = (
         <div className="card">
-            <h3 className="card-header">אפשרויות</h3>
+            <h4 className="card-header">אפשרויות</h4>
             <ul className="list-group">
                 <li className="list-group-item">
                     <Link className="nav-link" to='/cart'>העגלה שלי</Link>
@@ -29,7 +29,7 @@ const UserDashboard = props => {
 
     const userInfo = (
         <div className="card">
-            <h3 className="card-header">פרטי חשבון</h3>
+            <h4 className="card-header">פרטי חשבון</h4>
             <ul className="list-group">
                 <li className="list-group-item">שם: {user.name} </li>
                 <li className="list-group-item">אימייל: {user.email} </li>
@@ -40,7 +40,7 @@ const UserDashboard = props => {
 
     const ordersHistory = (
         <div className="card">
-            <h3 className="card-header">ההזמנות שלי</h3>
+            <h4 className="card-header">ההזמנות שלי</h4>
             <ul className="list-group">
                 <li className="list-group-item">מוצרים...</li>
             </ul>
@@ -49,8 +49,8 @@ const UserDashboard = props => {
     
     return (
         <div>
-            <div className="jumbotron jumbotron-fluid p-4">
-                <div className="container">
+            <div className="container">
+                <div className="jumbotron jumbotron-fluid p-4 mb-4 rounded">
                     <h1 className="display-5"> {user.name} </h1>
                     <p className="lead">פרטי משתמש ורשימת הזמנות</p>
                 </div>
@@ -68,7 +68,6 @@ const UserDashboard = props => {
                 <div className="mb-3">
                     {ordersHistory}
                 </div>   
-                
             </div>
         </div>
     )

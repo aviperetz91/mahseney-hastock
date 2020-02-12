@@ -32,7 +32,7 @@ const Home = () => {
             </div> */}
             <div style={{ paddingTop: 25, paddingBottom: 25 }}>
                 <div className="container">
-                    <h3 className="font-weight-bold">מוצרים מובילים</h3>
+                    <h4 className="font-weight-bold">מוצרים מובילים</h4>
                     {/* <hr style={{ width: 100, height: 1, backgroundColor: "#c3262f" }} /> */}
                     <div className="row justify-content-center mt-4">
                         {productsBySell.map((product => (
@@ -49,7 +49,7 @@ const Home = () => {
             </div>
             <div style={{ paddingTop: 25, paddingBottom: 25 }}>
                 <div className="container">
-                    <h3 className="font-weight-bold">חדש בחנות</h3>
+                    <h4 className="font-weight-bold">חדש בחנות</h4>
                     {/* <hr style={{ width: 100, height: 1, backgroundColor: "#c3262f" }} /> */}
                     <div className="row justify-content-center mt-4">
                         {productsByArrival.map((product => (
