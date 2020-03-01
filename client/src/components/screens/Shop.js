@@ -77,22 +77,23 @@ const Shop = () => {
                     </form>
                     <div className="font-weight-bold mb-2">סינון לפי קטגוריה</div>
                     <div className="list-unstyled">
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="category"
-                                    checked={filters.categoryId === "0"}
-                                    onChange={() => {
-                                        setFilters({...filters, categoryId: "0"});
-                                        setUserInput("");
-                                    }}
-                                ></input>
-                                <label className="form-check-label" >
-                                    כל המוצרים
-                                </label>
-                            </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="radio"
+                                name="category"
+                                id={"0"}
+                                checked={filters.categoryId === "0"}
+                                onChange={() => {
+                                    setFilters({...filters, categoryId: "0"});
+                                    setUserInput("");
+                                }}
+                            ></input>
+                            <label className="form-check-label" htmlFor={"0"}>
+                                כל המוצרים
+                            </label>
                         </div>
+                    </div>
                     {categories.map(category => (
                         <div className="list-unstyled" key={category._id}>
                             <div className="form-check">
@@ -137,7 +138,7 @@ const Shop = () => {
                 </div>
                 <div className="col-sm-0 col-md-9 col-lg-10">
                     <div className="row">
-                        {filterHandler().map(product => (
+                        {filterHandler().length > 0 ? filterHandler().map(product => (
                             <div key={product._id} className="mb-3 col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2">
                                 <Card
                                     _id={product._id}
@@ -145,7 +146,10 @@ const Shop = () => {
                                     title={product.title}
                                 />
                             </div>
-                        ))}
+                        )) : 
+                        <div class="alert alert-danger m-auto" role="alert">
+                            לא נמצאו תוצאות התואמות את החיפוש שלך.
+                        </div> }
                     </div>
                 </div>
             </div>

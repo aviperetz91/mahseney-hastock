@@ -40,8 +40,8 @@ const AdminDashboard = props => {
     
     return (
         <div>
-            <div className="jumbotron jumbotron-fluid p-4">
-                <div className="container">
+            <div className="container">
+                <div className="jumbotron jumbotron-fluid p-4">
                     <h1 className="display-5"> {user.name} </h1>
                     <p className="lead">פרטי משתמש ואפשרויות ניהול</p>
                 </div>
