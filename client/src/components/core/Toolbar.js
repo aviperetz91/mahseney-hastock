@@ -4,10 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 import * as authActions from '../../store/actions/authActions';
 
 // import logo from '../../images/logo.jpg';
+// import colors from '../../constants/colors';
 import logo_big from '../../images/logo_big.jpg';
 import { FaBars } from 'react-icons/fa';
-import colors from '../../constants/colors';
-
 
 const isActive = (history, path) => {
     const style = {
@@ -75,7 +74,7 @@ const Toolbar = props => {
                     </li>
                     { isAuthenticated && user.role === 1 ?
                     <li className="nav-item">
-                        <Link style={isActive(props.history, '/admin/dashboard')} className="nav-link" to='/admin/dashboard' data-toggle="collapse" data-target="#navbarSupportedContent"> תפריט ניהול </Link>
+                        <Link style={isActive(props.history, '/admin/dashboard')} className="nav-link" to='/admin/dashboard' data-toggle="collapse" data-target="#navbarSupportedContent"> תפריט </Link>
                     </li> : null }
                     { isAuthenticated && user.role === 0 ? 
                     <li className="nav-item">

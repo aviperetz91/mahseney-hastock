@@ -140,14 +140,10 @@ const Shop = () => {
                     <div className="row">
                         {filterHandler().length > 0 ? filterHandler().map(product => (
                             <div key={product._id} className="mb-3 col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                                <Card
-                                    _id={product._id}
-                                    price={product.price}
-                                    title={product.title}
-                                />
+                                <Card product={product} />
                             </div>
                         )) : 
-                        <div class="alert alert-danger m-auto" role="alert">
+                        <div className="alert alert-danger m-auto" role="alert">
                             לא נמצאו תוצאות התואמות את החיפוש שלך.
                         </div> }
                     </div>

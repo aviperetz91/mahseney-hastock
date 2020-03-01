@@ -5,7 +5,7 @@ import Home from '../components/screens/Home';
 import Register from '../components/screens/user/Register';
 import Login from '../components/screens/user/Login';
 import UserDashboard from '../components/screens/user/UserDashboard';
-import AdminDashboard from '../components/screens/user/AdminDashboard';
+import AdminDashboard from '../components/screens/admin/AdminDashboard';
 import AddCategory from '../components/screens/admin/AddCategory';
 import AddProduct from '../components/screens/admin/AddProduct';
 import Shop from '../components/screens/Shop';
